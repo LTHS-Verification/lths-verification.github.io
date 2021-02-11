@@ -1,17 +1,25 @@
 <head>
   <title>Verify that you go to FISD</title>
+  <style>
+    body{
+      background-color: #F1F1F1;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  Login below with your school account
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  <span id="signed-in"></span>
-  <script>
+  <main>
+    <h1>Login below with your school account</h1>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <h1 id="signed-in"></h1>
+    <script>
     function onSignIn(googleUser) {
       var msg = document.getElementById("signed-in")
       var profile = googleUser.getBasicProfile();
       msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
     }
-  </script>
+    </script>
+  </main>
 </body>
