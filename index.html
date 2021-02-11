@@ -9,6 +9,6 @@ Login below with your school account
     var profile = googleUser.getBasicProfile();
     msg.textContent="Welcome, "+profile.getGivenName()+"\
     You have successfully signed in. You may now close this tab";
-    document.getElementById('signed-in').style.display = "block";
+    msg.style.display = "block";
   }
 </script>
