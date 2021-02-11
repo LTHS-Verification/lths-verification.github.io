@@ -1,13 +1,14 @@
-Hello World!
+Login below with your school account
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
+<span id="signed-in" style="display: none;">.</span>
 <script>
   function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    var msg = document.getElementById("signed-in")
+    var profile = googleUser.getBasicProfile();
+    msg.textContent="Welcome, "+profile.getGivenName()+"\
+    You have successfully signed in. You may now close this tab";
+    document.getElementById('signed-in').style.display = "block";
   }
 </script>
