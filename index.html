@@ -7,7 +7,7 @@ Login below with your school account
   function onSignIn(googleUser) {
     var msg = document.getElementById("signed-in")
     var profile = googleUser.getBasicProfile();
-    msg.textContent="Welcome, "+profile.getGivenName()+"\nYou have successfully signed in. You may now close this tab";
+    msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
     msg.style.display = "block";
   }
 </script>
