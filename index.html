@@ -31,7 +31,7 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     if(!params.has('verification_token')){  
-      document.getElementById("top-message").textContent = "No Verification token was found in the URL Parameters";
+      document.getElementById("top-message").textContent = "No verification token was found in the URL parameters";
     }
     else{
       function onSignIn(googleUser) {
