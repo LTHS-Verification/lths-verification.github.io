@@ -39,7 +39,7 @@
         var profile = googleUser.getBasicProfile();
         msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
       }
-      document.onLoad = function(){
+      document.onload = function(){
         console.log(params.get('verification_token'));
         document.getElementById("g-signin2").style.display = "block";
       }
