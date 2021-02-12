@@ -20,7 +20,7 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     if(!params.has('verification_token')){
-      document.getElementById("g-singin2").remove();
+      document.getElementById("g-signin2").remove();
       document.getElementById("top-message").textContent = "No Verification token was found in the URL Parameters";
     }
     else{
