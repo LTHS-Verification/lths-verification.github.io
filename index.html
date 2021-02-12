@@ -24,7 +24,7 @@
     <br></br>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
-    <div class="g-signin2" data-onsuccess="onSignIn" style="display: none;"></div>
+    <div class="g-signin2" data-onsuccess="onSignIn" style="display: none;" data-onload="onButtonLoad"></div>
     <br></br>
     <h1 id="signed-in"></h1>
   </main>
@@ -39,10 +39,10 @@
         var profile = googleUser.getBasicProfile();
         msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
       }
-      window.onload = function(){
+      function onButtonLoad(){
         console.log(params.get('verification_token'));
         document.getElementById("g-signin2").style.display = "block";
-      };
+      }
     }
   </script>
 </body>
