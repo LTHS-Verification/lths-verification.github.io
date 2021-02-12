@@ -17,6 +17,21 @@
       text-align: center;
     }
   </style>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    if(!params.has('verification_token')){
+      document.getElementById("g-singin2").remove();
+      document.getElementById("top-message").textContent = "No Verification token was found in the URL Parameters";
+    }
+    else{
+      function onSignIn(googleUser) {
+        var msg = document.getElementById("signed-in")
+        var profile = googleUser.getBasicProfile();
+        msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
+      }
+      console.log(params.get('verification_token');
+    }
+  </script>
 </head>
 <body>
   <div class="main">
@@ -27,21 +42,5 @@
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <br></br>
     <h1 id="signed-in"></h1>
-    
-    <script>
-      const params = new URLSearchParams(window.location.search);
-      if(!params.has('verification_token')){
-        document.getElementById("g-singin2").remove();
-        document.getElementById("top-message").textContent = "No Verification token was found in the URL Parameters";
-      }
-      else{
-        function onSignIn(googleUser) {
-          var msg = document.getElementById("signed-in")
-          var profile = googleUser.getBasicProfile();
-          msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
-        }
-        console.log(params.get('verification_token');
-      }
-    </script>
   </main>
 </body>
