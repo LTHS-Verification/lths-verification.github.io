@@ -24,14 +24,13 @@
     <br></br>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div class="g-signin2" data-onsuccess="onSignIn" style="display: none;"></div>
     <br></br>
     <h1 id="signed-in"></h1>
   </main>
   <script>
     const params = new URLSearchParams(window.location.search);
-    if(!params.has('verification_token')){
-      //document.getElementById("abcRioButtonContentWrapper").remove();
+    if(!params.has('verification_token')){  
       document.getElementById("top-message").textContent = "No Verification token was found in the URL Parameters";
     }
     else{
@@ -41,6 +40,9 @@
         msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
       }
       console.log(params.get('verification_token'));
+      document.onLoad = function(){
+        document.getElementById("g-signin2").style.display = "block";
+      }
     }
   </script>
 </body>
