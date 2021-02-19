@@ -22,7 +22,7 @@
   <div class="main">
     <h1 id="top-message">Login below with your school account</h1>
     <br></br>
-    <div class="g-signin2"></div>
+    <div class="my-signin2"></div>
     <script>
       const params = new URLSearchParams(window.location.search);
       if(!params.has('verification_token')){  
@@ -36,7 +36,7 @@
         }
         function onButtonLoad(){
           console.log(params.get('verification_token'));
-          gapi.signin2.render('g-signin2', {
+          gapi.signin2.render('my-signin2', {
             'width': 240,
             'height': 50,
             'longtitle': true,
