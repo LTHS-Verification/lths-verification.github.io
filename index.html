@@ -30,10 +30,13 @@
         document.getElementById("top-message").textContent = "No verification token was found in the URL parameters";
       }
       else{
-        function onSignIn(googleUser) {
+        function onSuccess(googleUser) {
           var msg = document.getElementById("signed-in")
           var profile = googleUser.getBasicProfile();
           msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
+        }
+        function onFailure(err){
+          console.log(err);
         }
         function renderButton(){
           console.log(params.get('verification_token'));
@@ -43,7 +46,8 @@
             'height': 50,
             'longtitle': true,
             'theme': 'dark',
-            'onsuccess': onSignIn
+            'onsuccess': onSuccess,
+            'onfailure': onFailure
           });
         }
       }
