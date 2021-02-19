@@ -22,6 +22,7 @@
   <div class="main">
     <h1 id="top-message">Login below with your school account</h1>
     <br></br>
+    <div class="g-sign-in-button"></div>
     <script>
       const params = new URLSearchParams(window.location.search);
       if(!params.has('verification_token')){  
@@ -35,11 +36,12 @@
         }
         function onButtonLoad(){
           console.log(params.get('verification_token'));
-          gapi.signin2.render('g-signin2', {
+          gapi.signin2.render('g-sign-in-button', {
             'width': 240,
             'height': 50,
             'longtitle': true,
             'theme': 'dark',
+            'onsuccess': onSuccess,
             'display': 'block'
           });
         }
@@ -47,7 +49,6 @@
     </script>
     <script src="https://apis.google.com/js/platform.js?onload=onButtonLoad" async defer></script>
     <meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
-    <div class="g-signin2" data-onsuccess="onSignIn" style="display: none;"></div>
     <br></br>
     <h1 id="signed-in"></h1>
   </main>
