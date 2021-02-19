@@ -22,27 +22,27 @@
   <div class="main">
     <h1 id="top-message">Login below with your school account</h1>
     <br></br>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      if(!params.has('verification_token')){  
+        document.getElementById("top-message").textContent = "No verification token was found in the URL parameters";
+      }
+      else{
+        function onSignIn(googleUser) {
+          var msg = document.getElementById("signed-in")
+          var profile = googleUser.getBasicProfile();
+          msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
+        }
+        function onButtonLoad(){
+          console.log(params.get('verification_token'));
+          document.getElementById("g-signin2").style.display = "block";
+        }
+      }
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=onButtonLoad" async defer></script>
     <meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
     <div class="g-signin2" data-onsuccess="onSignIn" style="display: none;"></div>
     <br></br>
     <h1 id="signed-in"></h1>
   </main>
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    if(!params.has('verification_token')){  
-      document.getElementById("top-message").textContent = "No verification token was found in the URL parameters";
-    }
-    else{
-      function onSignIn(googleUser) {
-        var msg = document.getElementById("signed-in")
-        var profile = googleUser.getBasicProfile();
-        msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
-      }
-      function onButtonLoad(){
-        console.log(params.get('verification_token'));
-        document.getElementById("g-signin2").style.display = "block";
-      }
-    }
-  </script>
 </body>
