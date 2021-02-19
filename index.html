@@ -35,7 +35,13 @@
         }
         function onButtonLoad(){
           console.log(params.get('verification_token'));
-          document.getElementById("g-signin2").style.display = "block";
+          gapi.signin2.render('my-signin2', {
+            'width': 240,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'display': 'block'
+          });
         }
       }
     </script>
