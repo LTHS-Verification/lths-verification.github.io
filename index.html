@@ -35,7 +35,7 @@
           var profile = googleUser.getBasicProfile();
           msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
         }
-        function onButtonLoad(){
+        function renderButton(){
           console.log(params.get('verification_token'));
           gapi.signin2.render('my-signin2', {
             'width': 240,
@@ -47,7 +47,7 @@
         }
       }
     </script>
-    <script src="https://apis.google.com/js/platform.js?onload=onButtonLoad" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <br></br>
     <h1 id="signed-in"></h1>
   </main>
