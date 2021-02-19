@@ -34,6 +34,7 @@
           var msg = document.getElementById("signed-in")
           var profile = googleUser.getBasicProfile();
           msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
+          console.log(googleUser.getAuthResponse().id_token);
         }
         function onFailure(err){
           console.log(err);
