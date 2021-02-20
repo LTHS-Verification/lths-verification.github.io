@@ -64,7 +64,7 @@
         function onSuccess(googleUser) {
           var msg = document.getElementById("signedIn");
           var profile = googleUser.getBasicProfile();
-          msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
+          msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully verified your account. You may now close this tab";
           console.log(googleUser.getAuthResponse().id_token);
         }
         function onFailure(err){
