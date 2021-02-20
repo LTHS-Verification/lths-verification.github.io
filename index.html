@@ -26,6 +26,7 @@
       font-family: Arial;
     } 
     #optionMessage{
+      display: inline;
       font-size : 20px;
     }
     checkbox{
@@ -52,9 +53,9 @@
         }
       }
       else{
-        document.getElementById("optionMessage").style.display = 'inline';
+        document.getElementsByClassName("changeNicknameOption")[0].style.display = 'block';
         function onSuccess(googleUser) {
-          var msg = document.getElementById("signed-in")
+          var msg = document.getElementById("signed-in");
           var profile = googleUser.getBasicProfile();
           msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully signed in. You may now close this tab";
           console.log(googleUser.getAuthResponse().id_token);
