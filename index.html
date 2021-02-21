@@ -60,29 +60,63 @@
         }
       }
       else{
-        document.getElementsByClassName("changeNicknameOption")[0].style.display = 'block';
-        function onSuccess(googleUser) {
-          var msg = document.getElementById("signedIn");
-          var profile = googleUser.getBasicProfile();
-          msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully verified that you are an FISD student. You may now close this tab";
-          console.log(googleUser.getAuthResponse().id_token);
-        }
-        function onFailure(err){
-          console.log(err);
-        }
-        function renderButton(){
-          console.log(params.get('verification_token'));
-          gapi.signin2.render('my-signin2', {
-            'scope': 'profile email',
-            'width': 240,
-            'height': 50,
-            'longtitle': true,
-            'theme': 'dark',
-            'prompt': 'select_account',
-            'onsuccess': onSuccess,
-            'onfailure': onFailure
-          });
-        }
+        var vToken = params.get('verification_token');
+        var xhrGet = new XMLHttpRequest();
+        xhrGet.open('GET', 'https://jdacoolbot.herokuapp.com/check/'+vToken);
+        xhrGet.onload = function() {
+          if(xhrGet.responseText === "true"){
+            document.getElementsByClassName("changeNicknameOption")[0].style.display = 'block';
+            function onSignIn(googleUser) {
+              var msg = document.getElementById("signedIn");
+              var profile = googleUser.getBasicProfile();
+              var xhrPost = new XMLHttpRequest();
+              xhrPost.open('POST', 'https://jdacoolbot.herokuapp.com/verify');
+              xhrPost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+              xhrPost.onload = function() {
+                gapi.auth2.getAuthInstance().signOut();
+                var response = xhrPost.responseText;
+                if(response === "Verification Successful"){
+                  msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully verified that you are an FISD student. You may now close this tab";
+                }
+                else if(response === "Invalid Verification Token"){
+                  msg.textContent="Invalid/Expired Verification Token";
+                }
+                else{
+                  msg.textContent="An Error Occured. Please try signing again.";
+                }
+              };
+              xhrPost.send('id_token='+googleUser.getAuthResponse().id_token+'&verification_token='+ vToken + '&modify_nickname='+document.getElementById("checkbox").checked);
+            }
+            function onFailure(err){
+              console.log(err);
+            }
+            function renderButton(){
+              gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'prompt': 'select_account',
+                'onsuccess': onSignin,
+                'onfailure': onFailure
+              });
+            }
+          }
+          else if(xhrGet.responseText === "false"){
+            document.getElementById("topMessage").textContent = "Invalid/Expired Verification Token";
+            function renderButton(){
+          
+            }
+          }
+          else{
+            document.getElementById("topMessage").textContent = "An Error Ocurred";
+            function renderButton(){
+          
+            }
+          }
+        };
+        xhrGet.send();
       }
     </script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
