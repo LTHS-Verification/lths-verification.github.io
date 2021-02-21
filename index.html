@@ -102,11 +102,14 @@
                 'onfailure': onFailure
               });
             }
+            if(document.getElementById("gapiScript") != null){
+              renderButton();
+            }
           }
           else if(xhrGet.responseText === "false"){
             document.getElementById("topMessage").textContent = "Invalid/Expired Verification Token";
             function renderButton(){
-          
+              
             }
           }
           else{
@@ -119,7 +122,7 @@
         xhrGet.send();
       }
     </script>
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <script id="gapiScript" src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <h1 id="signedIn"></h1>
   </main>
 </body>
