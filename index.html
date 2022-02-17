@@ -1,119 +1,128 @@
 <head>
-<title>Verify that you go to FISD</title>
-<meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
-<style>
-body {
-	background-color: #3b3b3b;
-}
-.main {
-	padding: 40px;
-}
-.abcRioButtonBlue {
-	margin-left: auto;
-	margin-right: auto;
-}
-#topMessage {
-	text-align: center;
-	font-size: 45px;
-}
-#signedIn {
-	text-align: center;
-	font-size: 20px;
-	margin-top: 40px;
-}
-.changeNicknameOption {
-	display: none;
-	text-align: center;
-	margin-top: 40px;
-	margin-bottom: 40px;
-}
-h1 {
-	color: #f5f5f5;
-	font-family: Arial;
-}
-#optionMessage {
-	display: inline;
-	font-size: 20px;
-	vertical-align: middle;
-	margin-left: 4px;
-}
-#checkbox {
-	transform: scale(1.5);
-	vertical-align: -1.9px;
-}
-</style>
+  <title>Verify that you go to FISD</title>
+  <meta name="google-signin-client_id" content="187929951067-ve6qskhvt16lgo8f81iaf4jo17c8tldb.apps.googleusercontent.com">
+  <style>
+    body{
+      background-color: #3b3b3b;
+    }
+    .main{
+      padding: 40px;
+    }
+    .abcRioButtonBlue{
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #topMessage{
+      text-align: center;
+      font-size: 45px;
+    }
+    #signedIn{
+      text-align: center;
+      font-size: 20px;
+      margin-top: 40px;
+    }
+    .changeNicknameOption{
+      display: none;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+    h1{
+      color: #f5f5f5;
+      font-family: Arial;
+    } 
+    #optionMessage{
+      display: inline;
+      font-size: 20px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    #checkbox{
+      transform: scale(1.5);
+      vertical-align: -1.9px;
+    }
+  </style>
 </head>
 <body>
-<div class="main">
-<h1 id="topMessage">Login below with your school account</h1>
-<div class="changeNicknameOption">
-  <input type="checkbox" id="checkbox" checked>
-  <h1 id="optionMessage">Automatically Change Your Nickname In The Server To Your First Name</h1>
-</div>
-<div id="my-signin2"></div>
-<script>
-	const params = new URLSearchParams(window.location.search);
-	if(!params.has('verification_token')){  
-		document.getElementById("topMessage").textContent = "No verification token was found in the URL parameters";
-	}
-	else{
-		var vToken = params.get('verification_token');
+  <div class="main">
+    <h1 id="topMessage">Login below with your school account</h1>
+    <div class="changeNicknameOption">
+      <input type="checkbox" id="checkbox" checked>
+      <h1 id="optionMessage">Automatically Change Your Nickname In The Server To Your First Name</h1>
+    </div>
+    <div id="my-signin2"></div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      if(!params.has('verification_token')){  
+        document.getElementById("topMessage").textContent = "No verification token was found in the URL parameters";
+        function renderButton(){
+          
+        }
+      }
+      else{
+        var vToken = params.get('verification_token');
         var xhrGet = new XMLHttpRequest();
         xhrGet.open('GET', 'https://jdacoolbot.herokuapp.com/check/'+vToken);
         xhrGet.onload = function() {
-			if(xhrGet.responseText === "true"){
-				document.getElementsByClassName("changeNicknameOption")[0].style.display = 'block';
-				function onSignIn(googleUser) {
-					var msg = document.getElementById("signedIn");
-					var profile = googleUser.getBasicProfile();
-					var xhrPost = new XMLHttpRequest();
-					xhrPost.open('POST', 'https://jdacoolbot.herokuapp.com/verify');
-					xhrPost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-					xhrPost.onload = function() {
-						gapi.auth2.getAuthInstance().signOut();
-						var response = xhrPost.responseText;
-						if(response === "Verification Successful"){
-							msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully verified that you are an FISD student. You may now close this tab";
-						}
-						else if(response === "Invalid Verification Token"){
-							msg.textContent="Invalid/Expired Verification Token";
-						}
-						else{
-							msg.textContent="An Error Occured. Please try signing again.";
-						}
-					};
-					xhrPost.send('id_token='+googleUser.getAuthResponse().id_token+'&verification_token='+ vToken + '&modify_nickname='+document.getElementById("checkbox").checked);
-				}
-				function onFailure(err){
-					console.log(err);
-				}
-				function renderButton(){
-					gapi.signin2.render('my-signin2', {
-						'scope': 'profile email',
-						'width': 240,
-						'height': 50,
-						'longtitle': true,
-						'theme': 'dark',
-						'prompt': 'select_account',
-						'onsuccess': onSignIn,
-						'onfailure': onFailure
-					});
-				}
-				//var gapi = document.createElement("gapiScript");
-				console.log("hi");
-				console.log(document.getElementById("gapiScript").attributes);
-			}
-			else if(xhrGet.responseText === "false"){
-				document.getElementById("topMessage").textContent = "Invalid/Expired Verification Token";
-			}
-			else{
-				document.getElementById("topMessage").textContent = "An Error Ocurred";
-			}
-		};
-		xhrGet.send();
-	}
-</script> 
-<script id="gapiScript" src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-<h1 id="signedIn"></h1>
-</main>
+          if(xhrGet.responseText === "true"){
+            document.getElementsByClassName("changeNicknameOption")[0].style.display = 'block';
+            function onSignIn(googleUser) {
+              var msg = document.getElementById("signedIn");
+              var profile = googleUser.getBasicProfile();
+              var xhrPost = new XMLHttpRequest();
+              xhrPost.open('POST', 'https://jdacoolbot.herokuapp.com/verify');
+              xhrPost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+              xhrPost.onload = function() {
+                gapi.auth2.getAuthInstance().signOut();
+                var response = xhrPost.responseText;
+                if(response === "Verification Successful"){
+                  msg.textContent="Welcome, "+profile.getGivenName()+". You have successfully verified that you are an FISD student. You may now close this tab";
+                }
+                else if(response === "Invalid Verification Token"){
+                  msg.textContent="Invalid/Expired Verification Token";
+                }
+                else{
+                  msg.textContent="An Error Occured. Please try signing again.";
+                }
+              };
+              xhrPost.send('id_token='+googleUser.getAuthResponse().id_token+'&verification_token='+ vToken + '&modify_nickname='+document.getElementById("checkbox").checked);
+            }
+            function onFailure(err){
+              console.log(err);
+            }
+            function renderButton(){
+              gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'prompt': 'select_account',
+                'onsuccess': onSignIn,
+                'onfailure': onFailure
+              });
+            }
+            if(document.getElementById("gapiScript") != null){
+              renderButton();
+            }
+          }
+          else if(xhrGet.responseText === "false"){
+            document.getElementById("topMessage").textContent = "Invalid/Expired Verification Token";
+            function renderButton(){
+              
+            }
+          }
+          else{
+            document.getElementById("topMessage").textContent = "An Error Ocurred";
+            function renderButton(){
+          
+            }
+          }
+        };
+        xhrGet.send();
+      }
+    </script>
+    <script id="gapiScript" src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <h1 id="signedIn"></h1>
+  </main>
 </body>
