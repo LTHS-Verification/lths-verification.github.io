@@ -107,6 +107,9 @@
 			script.src = 'https://apis.google.com/js/platform.js?onload=renderButton';
 			script.async = true;
 			script.defer = true;
+			script.addEventListener('load', () => {
+				renderButton()
+			})
 			head.insertBefore(script, head.firstChild);
           }
           else if(xhrGet.responseText === "false"){
