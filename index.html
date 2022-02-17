@@ -103,7 +103,9 @@
               });
             }
             if(document.getElementById("gapiScript") != null){
-              renderButton();
+              document.getElementById("gapiScript").addEventListener('load', () => {
+				renderButton()
+			  }
             }
           }
           else if(xhrGet.responseText === "false"){
