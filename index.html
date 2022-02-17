@@ -102,11 +102,12 @@
                 'onfailure': onFailure
               });
             }
-            if(document.getElementById("gapiScript") != null){
-              document.getElementById("gapiScript").addEventListener('load', () => {
-				renderButton()
-			  })
-            }
+			var script = document.createElement('gapiScript');
+			var head = document.head || document.getElementsByTagName('head')[0];
+			script.src = 'https://apis.google.com/js/platform.js?onload=renderButton';
+			script.async = true;
+			script.defer = true;
+			head.insertBefore(script, head.firstChild);
           }
           else if(xhrGet.responseText === "false"){
             document.getElementById("topMessage").textContent = "Invalid/Expired Verification Token";
@@ -124,7 +125,6 @@
         xhrGet.send();
       }
     </script>
-    <script id="gapiScript" src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <h1 id="signedIn"></h1>
   </main>
 </body>
